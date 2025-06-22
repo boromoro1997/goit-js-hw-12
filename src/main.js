@@ -43,10 +43,7 @@ function searchSubmit(e) {
       createGallery(images);
       if (page <= maxPages) {
         showLoadMoreButton();
-        console.log('my if construction');
       }
-      console.log(page);
-      console.log(maxPages);
     })
     .catch(er =>
       iziToast.show({
@@ -68,7 +65,6 @@ async function handleClick() {
     const { images, maxPages } = await getImagesByQuery(searchedWord, page);
     createGallery(images);
     const card = document.querySelector('.gallery-item');
-    console.log(card.getBoundingClientRect());
     const { height } = card.getBoundingClientRect();
     if (page < maxPages) {
       showLoadMoreButton();
@@ -85,7 +81,9 @@ async function handleClick() {
       behavior: 'smooth',
     });
   } catch (er) {
-    console.log(er);
+    iziToast.show({
+      message: `Server error : ${er.message}`,
+    });
   }
   hideLoader();
 }
