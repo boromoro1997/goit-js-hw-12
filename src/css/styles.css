@@ -16,3 +16,169 @@
 @import url('./badges.css');
 @import url('./back-link.css');
 @import url('./footer.css');
+
+.hidden {
+  display: none !important;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 36px auto;
+}
+
+.form input[type='text'] {
+  width: 272px;
+}
+
+.form input[type='text'],
+.form button {
+  height: 40px;
+  font-size: 16px;
+  padding: 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.form input[type='text'] {
+  border: 1px solid #ccc;
+}
+
+.form button {
+  background-color: #4E75FF;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background-color: #6C8CFF;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding: 36px;
+  list-style: none;
+  margin: 0;
+}
+
+.gallery-item {
+  width: 360px;
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-link {
+  display: block;
+  height: 152px;
+  overflow: hidden;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-item>ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 48px;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background-color: #f7f7f7;
+  font-size: 12px;
+}
+
+.gallery-item>ul>li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.2;
+}
+
+.spanText {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.gallery-item>ul>li::first-line {
+  font-weight: bold;
+}
+.btn{
+  margin: 0 auto;
+  width: 125px;
+  height: 40px;
+  background-color: #4E75FF;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #6C8CFF;
+}
+
+.loader {
+  display: block;
+  justify-content: center;
+  padding: 5px 0;
+  margin: 0 auto;
+  width: 85px;
+  height: 50px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(#e60000 50px, transparent 0),
+    linear-gradient(#e60000 50px, transparent 0),
+    linear-gradient(#e60000 50px, transparent 0),
+    linear-gradient(#e60000 50px, transparent 0),
+    linear-gradient(#e60000 50px, transparent 0),
+    linear-gradient(#e60000 50px, transparent 0);
+  background-position: 0px center, 15px center, 30px center, 45px center, 60px center, 75px center, 90px center;
+  animation: rikSpikeRoll 0.65s linear infinite alternate;
+}
+
+@keyframes rikSpikeRoll {
+  0% {
+    background-size: 10px 3px;
+  }
+
+  16% {
+    background-size: 10px 50px, 10px 3px, 10px 3px, 10px 3px, 10px 3px, 10px 3px
+  }
+
+  33% {
+    background-size: 10px 30px, 10px 50px, 10px 3px, 10px 3px, 10px 3px, 10px 3px
+  }
+
+  50% {
+    background-size: 10px 10px, 10px 30px, 10px 50px, 10px 3px, 10px 3px, 10px 3px
+  }
+
+  66% {
+    background-size: 10px 3px, 10px 10px, 10px 30px, 10px 50px, 10px 3px, 10px 3px
+  }
+
+  83% {
+    background-size: 10px 3px, 10px 3px, 10px 10px, 10px 30px, 10px 50px, 10px 3px
+  }
+
+  100% {
+    background-size: 10px 3px, 10px 3px, 10px 3px, 10px 10px, 10px 30px, 10px 50px
+  }
+}
