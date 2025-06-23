@@ -12,7 +12,7 @@ import {
   hideLoadMoreButton,
   button,
 } from './js/render-functions';
-let page = 1;
+let page = 33;
 const form = document.querySelector('.form');
 form.addEventListener('submit', searchSubmit);
 let searchedWord;
@@ -41,9 +41,10 @@ function searchSubmit(e) {
         });
       }
       createGallery(images);
-      if (page <= maxPages) {
+      if (page < maxPages) {
         showLoadMoreButton();
       }
+      page = 33;
     })
     .catch(er =>
       iziToast.show({
@@ -53,7 +54,6 @@ function searchSubmit(e) {
     .finally(() => {
       hideLoader();
       form.reset();
-      page = 1;
     });
 }
 button.addEventListener('click', handleClick);
