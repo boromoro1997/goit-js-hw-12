@@ -12,7 +12,7 @@ import {
   hideLoadMoreButton,
   button,
 } from './js/render-functions';
-let page = 33;
+let page = 1;
 const form = document.querySelector('.form');
 form.addEventListener('submit', searchSubmit);
 let searchedWord;
@@ -44,7 +44,7 @@ function searchSubmit(e) {
       if (page < maxPages) {
         showLoadMoreButton();
       }
-      page = 33;
+      page = 1;
     })
     .catch(er =>
       iziToast.show({
