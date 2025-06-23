@@ -16,13 +16,12 @@ let page = 1;
 const form = document.querySelector('.form');
 form.addEventListener('submit', searchSubmit);
 let searchedWord;
-function searchSubmit(e) {
+async function searchSubmit(e) {
   e.preventDefault();
   showLoader();
   clearGallery();
   searchedWord = form.elements['search-text'].value.trim();
-  if (searchedWord.trim() === '') {
-    form.reset();
+  if (searchedWord === '') {
     hideLoader();
     return iziToast.show({
       message: '❌ you must write something!!',
@@ -30,32 +29,55 @@ function searchSubmit(e) {
       position: 'topRight',
     });
   }
-  getImagesByQuery(searchedWord, page)
-    .then(({ maxPages, images }) => {
-      if (images.length === 0) {
-        return iziToast.show({
-          message:
-            '❌ Sorry, there are no images matching your search query. Please try again!',
-          backgroundColor: 'red',
-          position: 'topRight',
-        });
-      }
-      createGallery(images);
-      if (page < maxPages) {
-        showLoadMoreButton();
-      }
-      page = 1;
-    })
-    .catch(er =>
-      iziToast.show({
-        message: `Server error : ${er}`,
-      })
-    )
-    .finally(() => {
-      hideLoader();
-      form.reset();
+  try {
+    page = 1;
+    const { images, maxPages } = await getImagesByQuery(searchedWord, page);
+    if (images.length === 0) {
+      return iziToast.show({
+        message:
+          '❌ Sorry, there are no images matching your search query. Please try again!',
+        backgroundColor: 'red',
+        position: 'topRight',
+      });
+    }
+    createGallery(images);
+    if (page < maxPages) {
+      showLoadMoreButton();
+    }
+  } catch (error) {
+    iziToast.show({
+      message: `Server error : ${error.message}`,
     });
+  }
+  hideLoader();
+  form.reset();
 }
+
+//   getImagesByQuery(searchedWord, page)
+//     .then(({ maxPages, images }) => {
+//       page = 1;
+//       if (images.length === 0) {
+//         return iziToast.show({
+//           message:
+//             '❌ Sorry, there are no images matching your search query. Please try again!',
+//           backgroundColor: 'red',
+//           position: 'topRight',
+//         });
+//       }
+//       createGallery(images);
+//       if (page < maxPages) {
+//         showLoadMoreButton();
+//       }
+//     })
+//     .catch(er =>
+//       iziToast.show({
+//         message: `Server error : ${er}`,
+//       })
+//     )
+//     .finally(() => {
+//       hideLoader();
+//       form.reset();
+//     });
 button.addEventListener('click', handleClick);
 async function handleClick() {
   page++;
