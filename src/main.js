@@ -29,8 +29,8 @@ async function searchSubmit(e) {
       position: 'topRight',
     });
   }
+  page = 1;
   try {
-    page = 1;
     const { images, maxPages } = await getImagesByQuery(searchedWord, page);
     if (images.length === 0) {
       return iziToast.show({
@@ -45,12 +45,22 @@ async function searchSubmit(e) {
       showLoadMoreButton();
     }
   } catch (error) {
+    let userMessage = 'Щось пішло не так. Спробуйте ще раз пізніше.';
+    if (error.response && error.response.status >= 500) {
+      userMessage = 'Сервер тимчасово недоступний, вибачте за незручності';
+    } else if (error.response && error.response.status >= 400) {
+      userMessage =
+        'Невірний запит або недоступний ресурс. Перевірте введені дані.';
+    }
     iziToast.show({
-      message: `Server error : ${error.message}`,
+      message: userMessage,
+      backgroundColor: 'red',
+      position: 'topRight',
     });
+  } finally {
+    hideLoader();
+    form.reset();
   }
-  hideLoader();
-  form.reset();
 }
 
 //   getImagesByQuery(searchedWord, page)
@@ -102,10 +112,20 @@ async function handleClick() {
       top: height * 2,
       behavior: 'smooth',
     });
-  } catch (er) {
+  } catch (error) {
+    let userMessage = 'Щось пішло не так. Спробуйте ще раз пізніше.';
+    if (error.response && error.response.status >= 500) {
+      userMessage = 'Сервер тимчасово недоступний, вибачте за незручності';
+    } else if (error.response && error.response.status >= 400) {
+      userMessage =
+        'Невірний запит або недоступний ресурс. Перевірте введені дані.';
+    }
     iziToast.show({
-      message: `Server error : ${er.message}`,
+      message: userMessage,
+      backgroundColor: 'red',
+      position: 'topRight',
     });
+  } finally {
+    hideLoader();
   }
-  hideLoader();
 }
